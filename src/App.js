@@ -55,11 +55,24 @@ class App extends Component {
       suministro: '',
       areaSolicitante: '',
       tipoOrden: '',
+      actividad1: '',
+      actividad2: '',
+      actividad3: '',
+      actividad4: '',
+      observacion: '',
+      contacto: '',
+      telefonoRef: '',
+      tipoAtencion: '',
+      codigoAtencion: '',
+      fechaProg: '',
+      horaProg: '',
+      horaFinProg: '',
       cantidadActividades: 1
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleFixedChange = this.handleFixedChange.bind(this);
     this.addActividad = this.addActividad.bind(this);
+    this.saveToFirebase = this.saveToFirebase.bind(this);
   }
 
   handleChange(e) {
@@ -75,6 +88,53 @@ class App extends Component {
     if (this.state.cantidadActividades < 4)
       this.setState(prevState => {
         return { cantidadActividades: (prevState.cantidadActividades += 1) };
+      });
+  }
+
+  saveToFirebase() {
+    const { db } = this.props;
+    const {
+      sst,
+      suministro,
+      areaSolicitante,
+      tipoOrden,
+      actividad1,
+      actividad2,
+      actividad3,
+      actividad4,
+      observacion,
+      contacto,
+      telefonoRef,
+      tipoAtencion,
+      codigoAtencion,
+      fechaProg,
+      horaProg,
+      horaFinProg
+    } = this.state;
+    db.collection('registros')
+      .add({
+        sst,
+        suministro,
+        areaSolicitante,
+        tipoOrden,
+        actividad1,
+        actividad2,
+        actividad3,
+        actividad4,
+        observacion,
+        contacto,
+        telefonoRef,
+        tipoAtencion,
+        codigoAtencion,
+        fechaProg,
+        horaProg,
+        horaFinProg
+      })
+      .then(function(docRef) {
+        console.log('Document written with ID: ', docRef.id);
+      })
+      .catch(function(error) {
+        console.error('Error adding document: ', error);
       });
   }
 
@@ -225,7 +285,7 @@ class App extends Component {
             type="date"
             onChange={this.handleChange}
           />
-          <div className={classes.test}>
+          <div className={classes.twoFields}>
             <TextField
               id="horaProg"
               type="time"
@@ -245,6 +305,7 @@ class App extends Component {
             variant="contained"
             size="medium"
             className={classes.register}
+            onClick={this.saveToFirebase}
           >
             <SaveIcon />
             Registrar
