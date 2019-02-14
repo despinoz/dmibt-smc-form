@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { areaSolicitanteOpc, tipoOrdenOpc } from './validatedFields';
 
 const styles = {
   header: {
@@ -56,6 +60,26 @@ class App extends Component {
           value={suministro}
           onChange={this.handleFixedChange}
         />
+        <FormControl>
+          <InputLabel>Area Solicitante</InputLabel>
+          <Select native id="areaSolicitante" onChange={this.handleChange}>
+            {areaSolicitanteOpc.map(opc => (
+              <option key={opc.value} value={opc.value}>
+                {opc.label}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl>
+          <InputLabel>Tipo Orden</InputLabel>
+          <Select native id="tipoOrden" onChange={this.handleChange}>
+            {tipoOrdenOpc.map(opc => (
+              <option key={opc.value} value={opc.value}>
+                {opc.label}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
         <br />
         <button onClick={() => console.log(this.state)}>REGISTRAR</button>
       </div>
