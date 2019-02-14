@@ -6,6 +6,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Icon from '@material-ui/core/Icon';
+import Button from '@material-ui/core/Button';
+import SaveIcon from '@material-ui/icons/Save';
 import {
   areaSolicitanteOpc,
   tipoOrdenOpc,
@@ -39,6 +41,9 @@ const styles = {
   },
   fifty: {
     width: '49%'
+  },
+  register: {
+    margin: '20px'
   }
 };
 
@@ -214,9 +219,37 @@ class App extends Component {
               onChange={this.handleChange}
             />
           </div>
+          <TextField
+            id="fechaProg"
+            label="Fecha Prog"
+            type="date"
+            onChange={this.handleChange}
+          />
+          <div className={classes.test}>
+            <TextField
+              id="horaProg"
+              type="time"
+              label="Hora Prog"
+              className={classes.fifty}
+              onChange={this.handleChange}
+            />
+            <TextField
+              id="horaFinProg"
+              type="time"
+              label="Hora Fin Prog"
+              className={classes.fifty}
+              onChange={this.handleChange}
+            />
+          </div>
+          <Button
+            variant="contained"
+            size="medium"
+            className={classes.register}
+          >
+            <SaveIcon />
+            Registrar
+          </Button>
         </form>
-        <br />
-        <button onClick={() => console.log(this.state)}>REGISTRAR</button>
       </div>
     );
   }
